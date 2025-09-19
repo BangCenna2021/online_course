@@ -1,10 +1,20 @@
 "use client";
 import { useSession, signOut } from "next-auth/react";
-import { useRouter } from "next/navigation";
-import { useState, useEffect } from "react";
 
 export default function Main_page() {
   const { data: session, status } = useSession();
+
+  if (status === "loading") {
+    return <div className='p-6'>Loading...</div>;
+  }
+
+  if (!session) {
+    return (
+      <div className='p-6'>
+        <p>You are not signed in</p>
+      </div>
+    );
+  }
 
   return (
     <div className='min-h-screen bg-gray-100'>
@@ -18,15 +28,15 @@ export default function Main_page() {
           <div className='flex items-center space-x-4'>
             <div className='flex items-center space-x-3'>
               <img
-                src={session.user?.image || "/api/placeholder/40/40"}
+                src={session?.user?.image || "/api/placeholder/40/40"}
                 alt='PP'
                 className='w-10 h-10 rounded-full border-2 border-gray-300'
               />
               <div className='hidden md:block'>
                 <p className='text-sm font-medium text-gray-900'>
-                  {session.user?.name}
+                  {session?.user?.name}
                 </p>
-                <p className='text-xs text-gray-500'>{session.user?.email}</p>
+                <p className='text-xs text-gray-500'>{session?.user?.email}</p>
               </div>
             </div>
             <button

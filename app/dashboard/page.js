@@ -418,7 +418,7 @@ export default function Dashboard() {
       return;
     }
 
-    fetch("http://localhost/oc/api/create_category", {
+    fetch("https://online-course.bang-cenna.my.id/api/create_category", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -432,7 +432,7 @@ export default function Dashboard() {
       .then((data) => {
         console.log("Response from API:", data);
         if (data.status) {
-          fetch("http://localhost/oc/api/categories")
+          fetch("https://online-course.bang-cenna.my.id/api/categories")
             .then((res) => res.json())
             .then((data) => setCategories(data));
 
@@ -481,13 +481,16 @@ export default function Dashboard() {
       cancelButtonText: "Batal",
     }).then((result) => {
       if (result.isConfirmed) {
-        fetch(`http://localhost/oc/api/delete_category/${id}`, {
-          method: "DELETE",
-        })
+        fetch(
+          `https://online-course.bang-cenna.my.id/api/delete_category/${id}`,
+          {
+            method: "DELETE",
+          }
+        )
           .then((res) => res.json())
           .then((data) => {
             if (data.status) {
-              fetch("http://localhost/oc/api/categories")
+              fetch("https://online-course.bang-cenna.my.id/api/categories")
                 .then((res) => res.json())
                 .then((data) => setCategories(data));
 
@@ -504,20 +507,23 @@ export default function Dashboard() {
   };
 
   const handleUpdateCategory = (cat) => {
-    fetch(`http://localhost/oc/api/update_category/${cat.id_category}`, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        category: cat.category,
-        aktiv: cat.aktiv,
-      }),
-    })
+    fetch(
+      `https://online-course.bang-cenna.my.id/api/update_category/${cat.id_category}`,
+      {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          category: cat.category,
+          aktiv: cat.aktiv,
+        }),
+      }
+    )
       .then((res) => res.json())
       .then((data) => {
         if (data.status) {
-          fetch("http://localhost/oc/api/categories")
+          fetch("https://online-course.bang-cenna.my.id/api/categories")
             .then((res) => res.json())
             .then((data) => setCategories(data));
 
@@ -538,7 +544,7 @@ export default function Dashboard() {
       activeTabQuestion === "newquestion"
     ) {
       setLoadingCat(true);
-      fetch("http://localhost/oc/api/categories")
+      fetch("https://online-course.bang-cenna.my.id/api/categories")
         .then((res) => res.json())
         .then((data) => {
           console.log("Fetched categories:", data);
@@ -564,10 +570,14 @@ export default function Dashboard() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const resStudents = await fetch("http://localhost/oc/api/get_students");
+        const resStudents = await fetch(
+          "https://online-course.bang-cenna.my.id/api/get_students"
+        );
         const dataStudents = await resStudents.json();
 
-        const resUsers = await fetch("http://localhost/oc/api/get_users");
+        const resUsers = await fetch(
+          "https://online-course.bang-cenna.my.id/api/get_users"
+        );
         const dataUsers = await resUsers.json();
 
         setAllStudents(dataStudents);
@@ -2198,10 +2208,13 @@ export default function Dashboard() {
 
       formData.append("count", questionsLpartA.length);
 
-      const response = await fetch("http://localhost/oc/api/save", {
-        method: "POST",
-        body: formData,
-      });
+      const response = await fetch(
+        "https://online-course.bang-cenna.my.id/api/save",
+        {
+          method: "POST",
+          body: formData,
+        }
+      );
 
       const result = await response.json();
       if (result.status === true) {
@@ -2261,10 +2274,13 @@ export default function Dashboard() {
 
       formData.append("count", questionsLpartB.length);
 
-      const response = await fetch("http://localhost/oc/api/savePartB", {
-        method: "POST",
-        body: formData,
-      });
+      const response = await fetch(
+        "https://online-course.bang-cenna.my.id/api/savePartB",
+        {
+          method: "POST",
+          body: formData,
+        }
+      );
 
       const result = await response.json();
       console.log("✅ Server response:", result);
@@ -2327,10 +2343,13 @@ export default function Dashboard() {
 
       formData.append("count", questionsLpartB.length);
 
-      const response = await fetch("http://localhost/oc/api/savePartB", {
-        method: "POST",
-        body: formData,
-      });
+      const response = await fetch(
+        "https://online-course.bang-cenna.my.id/api/savePartB",
+        {
+          method: "POST",
+          body: formData,
+        }
+      );
 
       const result = await response.json();
       console.log("✅ Server response:", result);
